@@ -4,7 +4,9 @@ public class Checkout {
     public static void main(String[] args) {
         Checkout simulation = new Checkout();
         simulation.Model1();
-        //simulation.Model2();
+        System.out.print("\n");
+        simulation.Model2();
+        System.out.print("\n");
         //simulation.Model3();
     }
 

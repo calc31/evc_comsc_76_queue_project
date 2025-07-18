@@ -75,7 +75,8 @@ public class Checkout {
             System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
             System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
             System.out.println("Maximum queue length: " + tracker.getMaxQueueLength());
-    
+
+            }
     }
 
     public void Model3() {

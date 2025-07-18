@@ -67,16 +67,14 @@ public class Checkout {
                 // Tick all stations
                 for (CheckoutStation station : stations) {
                     station.tick();
+                }  
             }
-            
-
             // Final statistics
             System.out.println("=== Model 2: Each Station with Own Line (next available) ===");
             System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
             System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
             System.out.println("Maximum queue length: " + tracker.getMaxQueueLength());
 
-            }
     }
 
     public void Model3() {

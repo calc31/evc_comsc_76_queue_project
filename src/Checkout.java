@@ -21,60 +21,8 @@ public class Checkout {
     }
 
     public void Model2() {
-        final int simulationDuration = 2 * 60 * 60; // two hours in seconds
-            final int numStations = 5;
-            final int customerArrivalRate = 25; // new customer every 25 seconds
-
-            CheckoutStation[] stations = new CheckoutStation[numStations];
-            for (int i = 0; i < numStations; i++) {
-                stations[i] = new CheckoutStation();
-            }
-
-            StatisticsTracker tracker = new StatisticsTracker();
-            Random random = new Random();
-
-            int nextArrivalTime = 0;
-
-            for (int currentSecond = 0; currentSecond < simulationDuration; currentSecond++) {
-                // New customer arrives exactly every 25 seconds
-                if (currentSecond >= nextArrivalTime) {
-                    Customer customer = new Customer(currentSecond);
-
-                    // Choose the station with the fewest customers waiting or being served
-                    CheckoutStation targetStation = stations[0];
-                    int minQueue = targetStation.isAvailable() ? 0 : 1;
-
-                    for (int i = 1; i < numStations; i++) {
-                        int queueSize = stations[i].isAvailable() ? 0 : 1;
-                        if (queueSize < minQueue) {
-                            targetStation = stations[i];
-                            minQueue = queueSize;
-                        }
-                    }
-
-                    if (targetStation.isAvailable()) {
-                        targetStation.assignCustomer(customer, currentSecond);
-                        tracker.recordCustomer(customer);
-                    } else {
-                        // all stations are busy; randomly pick one to enqueue into shared waiting queue
-                        // for this simple model, we'll skip actual queueing to keep it direct,
-                        // or you can add a waiting queue if desired
-                    }
-
-                    nextArrivalTime += customerArrivalRate;
-                }
-
-                // Tick all stations
-                for (CheckoutStation station : stations) {
-                    station.tick();
-                }
-            }
-
-            // Final statistics
-            System.out.println("=== Model 2: Each Station with Own Line (next available) ===");
-            System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
-            System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
-            System.out.println("Maximum queue length: " + tracker.getMaxQueueLength());
+       // Code here
+    
     }
 
     public void Model3() {

@@ -2,7 +2,30 @@ import java.util.Random;
 
 public class Checkout {
     public static void main(String[] args) {
-        // Your code here
+        Checkout simulation = new Checkout();
+        simulation.Model1();
+        //simulation.Model2();
+        //simulation.Model3();
+    }
+
+    public void Model1() {
+        final int simulation_duration = 2 * 60 * 60; // two hours in seconds
+        final int num_stations = 5; // change this to experiment
+
+        Queue<Customer> customerLine = new Queue<>();
+
+        CheckoutStation[] stations = new CheckoutStation[num_stations];
+        for (int i = 0; i < num_stations; i++) {
+            stations[i] = new CheckoutStation();
+        }
+    }
+
+    public void Model2() {
+        // Code here
+    }
+
+    public void Model3() {
+        // Code here
     }
 }
 

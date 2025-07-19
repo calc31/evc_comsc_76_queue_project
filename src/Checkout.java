@@ -65,44 +65,44 @@ public class Checkout {
         // System.out.printf("Average wait time: %.2f minutes%n", stats.getAverageWaitTime() / 60.0);
     }
 
-      public void Model2() {
-    final int simulationDuration = 2 * 60 * 60; // two hours in seconds
-    final int numStations = 5;
-    final int customerArrivalRate = 25; // new customer every 25 seconds
+    public void Model2() {
+        final int simulationDuration = 2 * 60 * 60; // two hours in seconds
+        final int numStations = 5;
+        final int customerArrivalRate = 25; // new customer every 25 seconds
 
-    CheckoutStation[] stations = new CheckoutStation[numStations];
-    for (int i = 0; i < numStations; i++) {
-        stations[i] = new CheckoutStation();
-    }
-
-    StatisticsTracker tracker = new StatisticsTracker();
-    Queue<Customer> waitingQueue = new Queue<>();
-    int nextArrivalTime = 0;
-
-    for (int currentSecond = 0; currentSecond < simulationDuration; currentSecond++) {
-        // New customer arrives exactly every 25 seconds
-        if (currentSecond >= nextArrivalTime) {
-            Customer customer = new Customer(currentSecond);
-
-            // Choose the station with the fewest customers waiting or being served
-            CheckoutStation targetStation = null;
-
-            for (int i = 0; i < numStations; i++) {
-                if (stations[i].isAvailable()) {
-                    targetStation = stations[i];
-                    break;
-                }
-            }
-
-            if (targetStation != null) {
-                targetStation.assignCustomer(customer, currentSecond);
-                tracker.recordCustomer(customer);
-            } else {
-                waitingQueue.enqueue(customer); // enqueue if all stations are busy
-            }
-
-            nextArrivalTime += customerArrivalRate;
+        CheckoutStation[] stations = new CheckoutStation[numStations];
+        for (int i = 0; i < numStations; i++) {
+            stations[i] = new CheckoutStation();
         }
+
+        StatisticsTracker tracker = new StatisticsTracker();
+        Queue<Customer> waitingQueue = new Queue<>();
+        int nextArrivalTime = 0;
+
+        for (int currentSecond = 0; currentSecond < simulationDuration; currentSecond++) {
+            // New customer arrives exactly every 25 seconds
+            if (currentSecond >= nextArrivalTime) {
+                Customer customer = new Customer(currentSecond);
+
+                // Choose the station with the fewest customers waiting or being served
+                CheckoutStation targetStation = null;
+
+                for (int i = 0; i < numStations; i++) {
+                    if (stations[i].isAvailable()) {
+                        targetStation = stations[i];
+                        break;
+                    }
+                }
+
+                if (targetStation != null) {
+                    targetStation.assignCustomer(customer, currentSecond);
+                    tracker.recordCustomer(customer);
+                } else {
+                    waitingQueue.enqueue(customer); // enqueue if all stations are busy
+                }
+
+                nextArrivalTime += customerArrivalRate;
+            }
 
         // Assign customers from waiting queue to available stations
         for (int i = 0; i < numStations; i++) {

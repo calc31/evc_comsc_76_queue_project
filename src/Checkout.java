@@ -68,7 +68,7 @@ public class Checkout {
     public void Model2() {
         final int simulationDuration = 2 * 60 * 60; // two hours in seconds
         final int numStations = 5;
-        final int customerArrivalRate = 25; // new customer every 25 seconds
+        final int customerArrivalRate = 10; // new customer every 10 seconds
 
         CheckoutStation[] stations = new CheckoutStation[numStations];
         for (int i = 0; i < numStations; i++) {
@@ -190,8 +190,8 @@ class Customer {
     public Customer(int queueEntrySecond) {
         Random random = new Random();
         this.queueEntrySecond = queueEntrySecond;
-        this.numItems = random.nextInt(1, 36);         // 1–35 items
-        this.paymentTime = random.nextInt(15, 34);     // 15–35 seconds
+        this.numItems = random.nextInt(10, 36);         // 10–35 items
+        this.paymentTime = random.nextInt(15, 46);     // 15–45 seconds
     }
 
     /*public int getArrivalSecond() {

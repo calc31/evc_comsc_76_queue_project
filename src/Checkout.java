@@ -130,48 +130,53 @@ public class Checkout {
 }
 
     public void Model3() {
-        final int simulation_duration = 2 * 60 * 60; // two hours in seconds
-        final int num_stations = 5; // adjust to test different numbers of stations
+    final int simulation_duration = 2 * 60 * 60; // two hours in seconds
+    final int num_stations = 5;
+    final int new_customer_arrival_rate = 10;
 
-        Queue<Customer> sharedQueue = new Queue<>();
-        CheckoutStation[] stations = new CheckoutStation[num_stations];
+    Queue<Customer>[] lines = new Queue[num_stations];
+    CheckoutStation[] stations = new CheckoutStation[num_stations];
+    StatisticsTracker tracker = new StatisticsTracker();
+    Random random = new Random();
+
+    for (int i = 0; i < num_stations; i++) {
+        lines[i] = new Queue<>();
+        stations[i] = new CheckoutStation();
+    }
+
+    for (int currentSecond = 0; currentSecond < simulation_duration; currentSecond++) {
+        // Fixed-rate customer arrival
+        if (currentSecond % new_customer_arrival_rate == 0) {
+            Customer customer = new Customer(currentSecond);  // uses existing constructor
+            int randomLine = random.nextInt(num_stations);    // randomly pick a line
+            lines[randomLine].enqueue(customer);
+        }
+
+        // Assign customers from each line to their station
         for (int i = 0; i < num_stations; i++) {
-            stations[i] = new CheckoutStation();
+            if (stations[i].isAvailable() && !lines[i].isEmpty()) {
+                Customer nextCustomer = lines[i].dequeue();
+                stations[i].assignCustomer(nextCustomer, currentSecond);
+                tracker.recordCustomer(nextCustomer);
+            }
         }
 
-        StatisticsTracker tracker = new StatisticsTracker();
-        Random random = new Random();
-
-        // 2. Simulation loop
-        for (int currentSecond = 0; currentSecond < simulation_duration; currentSecond++) {
-            // New customer arrives with 1 in 3 chance
-            if (random.nextInt(3) == 0) {
-                sharedQueue.enqueue(new Customer(currentSecond));
-            }
-
-            // Assign customers to available stations
-            for (int i = 0; i < num_stations; i++) {
-                if (stations[i].isAvailable() && !sharedQueue.isEmpty()) {
-                    Customer customer = sharedQueue.dequeue();
-                    stations[i].assignCustomer(customer, currentSecond);
-                    tracker.recordCustomer(customer);
-                }
-            }
-
-            // Tick all stations
-            for (int i = 0; i < num_stations; i++) {
-                stations[i].tick();
-            }
-
-            // Update max queue length
-            tracker.updateMaxQueue(sharedQueue.size());
+        // Tick each checkout station
+        for (int i = 0; i < num_stations; i++) {
+            stations[i].tick();
         }
 
-        // 3. Final statistics
-        System.out.println("=== Model 3: Shared Queue for All Stations ===");
-        System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
-        System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
-        System.out.println("Maximum queue length: " + tracker.getMaxQueueLength());
+        // Update max queue length tracker
+        for (int i = 0; i < num_stations; i++) {
+            tracker.updateMaxQueue(lines[i].size());
+        }
+    }
+
+    // Output results
+    System.out.println("=== Model 3: One Line Per Station ===");
+    System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
+    System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
+    System.out.println("Max queue length in any line: " + tracker.getMaxQueueLength());
     }
 }
 

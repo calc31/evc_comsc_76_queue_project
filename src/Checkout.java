@@ -13,7 +13,7 @@ public class Checkout {
     public void Model1() {
         final int simulation_duration = 2 * 60 * 60; // two hours in seconds
         final int num_stations = 5; // change this to experiment
-        final int new_customer_arrival_rate = 30; // new customer every 30 seconds
+        final int new_customer_arrival_rate = 10; // new customer every 30 seconds
 
         // Create an empty queue
         Queue<Customer> customer_line = new Queue<>();
@@ -60,8 +60,8 @@ public class Checkout {
         System.out.println("=== Model 1: One customer line; n checkout stations. " +
                 "Customers go to next available station.");
         System.out.println("Total customers served: " + stats.getTotalCustomersServed());
-        System.out.println("Maximum queue length: " + stats.getMaxQueueLength());
         System.out.printf("Average wait time: %.2f seconds%n", stats.getAverageWaitTime());
+        System.out.println("Maximum queue length: " + stats.getMaxQueueLength());
         // System.out.printf("Average wait time: %.2f minutes%n", stats.getAverageWaitTime() / 60.0);
     }
 

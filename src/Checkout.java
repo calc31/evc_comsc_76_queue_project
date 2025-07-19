@@ -15,8 +15,10 @@ public class Checkout {
         final int num_stations = 5; // change this to experiment
         final int new_customer_arrival_rate = 30; // new customer every 30 seconds
 
+        // Create an empty queue
         Queue<Customer> customer_line = new Queue<>();
 
+        // Create checkout stations
         CheckoutStation[] stations = new CheckoutStation[num_stations];
         for (int i = 0; i < num_stations; i++) {
             stations[i] = new CheckoutStation();

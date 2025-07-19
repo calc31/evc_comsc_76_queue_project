@@ -57,10 +57,12 @@ public class Checkout {
         }
 
         // Report results
-        System.out.println("=== Model 1: One customer line; n checkout stations. " +
-                "Customers go to next available station.");
+        System.out.println("=== Model 1: One customer line; n checkout stations " +
+                "Customers go to next available station ===");
         System.out.println("Total customers served: " + stats.getTotalCustomersServed());
-        System.out.printf("Average wait time: %.2f seconds%n", stats.getAverageWaitTime());
+        // System.out.printf("Average wait time: %.2f seconds%n", stats.getAverageWaitTime());
+        System.out.printf("Average wait time: %d minutes %d seconds%n", (int) (stats.getAverageWaitTime() / 60),
+                (int) (stats.getAverageWaitTime() % 60));
         System.out.println("Maximum queue length: " + stats.getMaxQueueLength());
         // System.out.printf("Average wait time: %.2f minutes%n", stats.getAverageWaitTime() / 60.0);
     }
@@ -124,7 +126,9 @@ public class Checkout {
         // Print final stats
         System.out.println("=== Model 2: Each Station Has Its Own Line; customers choose the shortest line ===");
         System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
-        System.out.printf("Average wait time: %.2f seconds%n", tracker.getAverageWaitTime());
+        // System.out.printf("Average wait time: %.2f seconds%n", tracker.getAverageWaitTime());
+        System.out.printf("Average wait time: %d minutes %d seconds%n", (int) (tracker.getAverageWaitTime() / 60),
+                (int) (tracker.getAverageWaitTime() % 60));
         System.out.println("Maximum queue length observed in any line: " + tracker.getMaxQueueLength());
     }
 
@@ -172,10 +176,12 @@ public class Checkout {
     }
 
     // Output results
-    System.out.println("=== Model 3: One Line Per Station ===");
+    System.out.println("=== Model 3: Each Station Has Its Own Line; customers choose a random line ===");
     System.out.println("Total customers served: " + tracker.getTotalCustomersServed());
-    System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
-    System.out.println("Max queue length in any line: " + tracker.getMaxQueueLength());
+    // System.out.printf("Average wait time: %.2f seconds\n", tracker.getAverageWaitTime());
+    System.out.printf("Average wait time: %d minutes %d seconds%n", (int) (tracker.getAverageWaitTime() / 60),
+            (int) (tracker.getAverageWaitTime() % 60));
+    System.out.println("Maximum queue length observed in any line: " + tracker.getMaxQueueLength());
     }
 }
 

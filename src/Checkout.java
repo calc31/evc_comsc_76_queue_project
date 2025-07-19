@@ -7,19 +7,60 @@ public class Checkout {
         System.out.print("\n");
         simulation.Model2();
         System.out.print("\n");
-        //simulation.Model3();
+        simulation.Model3();
     }
 
     public void Model1() {
         final int simulation_duration = 2 * 60 * 60; // two hours in seconds
         final int num_stations = 5; // change this to experiment
+        final int new_customer_arrival_rate = 30; // new customer every 30 seconds
 
-        Queue<Customer> customerLine = new Queue<>();
+        Queue<Customer> customer_line = new Queue<>();
 
         CheckoutStation[] stations = new CheckoutStation[num_stations];
         for (int i = 0; i < num_stations; i++) {
             stations[i] = new CheckoutStation();
         }
+
+        StatisticsTracker stats = new StatisticsTracker();
+        int next_customer_arrival_time = 0;
+
+        // Run the simulation, tick by tick
+        for (int currentSecond = 0; currentSecond < simulation_duration; currentSecond++) {
+
+            // Add a new customer to the queue at a certain frequency
+            if (currentSecond >= next_customer_arrival_time) {
+                Customer newCustomer = new Customer(currentSecond);
+                newCustomer.setQueueEntrySecond(currentSecond);
+                customer_line.enqueue(newCustomer);
+                next_customer_arrival_time += new_customer_arrival_rate;
+            }
+
+            // Update max queue length for stats
+            stats.updateMaxQueue(customer_line.size());
+
+            // Assign waiting customers to available stations
+            for (CheckoutStation station : stations) {
+                if (station.isAvailable() && !customer_line.isEmpty()) {
+                    Customer nextCustomer = customer_line.dequeue();
+                    station.assignCustomer(nextCustomer, currentSecond);
+                    stats.recordCustomer(nextCustomer);
+                }
+            }
+
+            // Advance time in each station
+            for (CheckoutStation station : stations) {
+                station.tick();
+            }
+        }
+
+        // Report results
+        System.out.println("=== Model 1: One customer line; n checkout stations. " +
+                "Customers go to next available station.");
+        System.out.println("Total customers served: " + stats.getTotalCustomersServed());
+        System.out.println("Maximum queue length: " + stats.getMaxQueueLength());
+        System.out.printf("Average wait time: %.2f seconds%n", stats.getAverageWaitTime());
+        // System.out.printf("Average wait time: %.2f minutes%n", stats.getAverageWaitTime() / 60.0);
     }
 
       public void Model2() {
@@ -33,7 +74,6 @@ public class Checkout {
             }
 
             StatisticsTracker tracker = new StatisticsTracker();
-            Random random = new Random();
 
             int nextArrivalTime = 0;
 

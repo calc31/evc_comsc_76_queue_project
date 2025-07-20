@@ -1,3 +1,22 @@
+/*
+ * Names: Shankar Subramaniam, Nehan Armin, Divsheen Kaur, Rithvik Yarra, Sahiti Rayaprolu, and Tu Nguyen.
+ * Date: July 20, 2025
+ *
+ * Description:
+ * This program simulates a grocery store checkout system using three different models.
+ * It runs each model for two hours with a 5 checkout
+ * stations and a fixed customer arrival rate. Customers have varying numbers of items (10-35) and
+ * payment times (15-45), and each checkout station processes customers one at a time.
+ *
+ * The three models are:
+ *    Model 1: One line for customers, with n checkout stations. Customers go to the next available station.
+ *    Model 2: n lines for customers, with one checkout station per line. Customers go to the line with the
+ *             fewest number of customers.
+ *    Model 3: n lines for customers, with one checkout station per line. Customers go to a randomly chosen line.
+ *
+ * After each simulation, statistics are displayed, including total customers served, average
+ * wait time, and the maximum queue length observed.
+ */
 
 import java.util.ArrayList;
 import java.util.Deque;

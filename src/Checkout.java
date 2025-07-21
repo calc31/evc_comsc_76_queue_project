@@ -6,7 +6,7 @@
  * This program simulates a grocery store checkout system using three different models.
  * It runs each model for two hours with a 5 checkout
  * stations and a fixed customer arrival rate. Customers have varying numbers of items (10-35) and
- * payment times (15-45), and each checkout station processes customers one at a time.
+ * payment times (20-60), and each checkout station processes customers one at a time.
  *
  * The three models are:
  *    Model 1: One line for customers, with n checkout stations. Customers go to the next available station.

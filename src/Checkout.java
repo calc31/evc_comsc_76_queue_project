@@ -34,7 +34,7 @@ public class Checkout {
     public void Model1() {
         final int simulation_duration = 2 * 60 * 60; // two hours in seconds
         final int num_stations = 5; // change this to experiment
-        final int new_customer_arrival_rate = 10; // new customer every 30 seconds
+        final int new_customer_arrival_rate = 30; // new customer every 30 seconds
 
         // Create an empty queue
         Queue<Customer> customer_line = new Queue<>();
@@ -91,7 +91,7 @@ public class Checkout {
     public void Model2() {
         final int simulationDuration = 2 * 60 * 60; // two hours in seconds
         final int numStations = 5;
-        final int customerArrivalRate = 10; // new customer every 10 seconds
+        final int customerArrivalRate = 30; // new customer every 30 seconds
 
         // Each station has its own queue
         Queue<Customer>[] stationQueues = new Queue[numStations];
@@ -156,7 +156,7 @@ public class Checkout {
     public void Model3() {
     final int simulation_duration = 2 * 60 * 60; // two hours in seconds
     final int num_stations = 5;
-    final int new_customer_arrival_rate = 10;
+    final int new_customer_arrival_rate = 30; // new customer every 30 seconds
 
     Queue<Customer>[] lines = new Queue[num_stations];
     CheckoutStation[] stations = new CheckoutStation[num_stations];
@@ -217,7 +217,7 @@ class Customer {
         Random random = new Random();
         this.queueEntrySecond = queueEntrySecond;
         this.numItems = random.nextInt(10, 36);         // 10–35 items
-        this.paymentTime = random.nextInt(15, 46);     // 15–45 seconds
+        this.paymentTime = random.nextInt(20, 61);     // 20-60 seconds
     }
 
     /*public int getArrivalSecond() {
